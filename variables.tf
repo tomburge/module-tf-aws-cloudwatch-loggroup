@@ -1,6 +1,7 @@
 # Variables
 variable "destroy" {
-  type = bool
+  type    = bool
+  default = false
 }
 
 variable "name" {
