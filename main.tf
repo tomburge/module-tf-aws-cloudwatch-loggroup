@@ -3,6 +3,11 @@ resource "aws_kms_key" "key" {
   deletion_window_in_days = 7
 }
 
+resource "aws_kms_alias" "a" {
+  name          = "${var.name}-alias"
+  target_key_id = aws_kms_key.key.key_id
+}
+
 resource "aws_cloudwatch_log_group" "this" {
   name              = var.name
   kms_key_id        = aws_kms_key.key.arn
