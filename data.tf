@@ -7,12 +7,12 @@ data "aws_iam_policy_document" "key_policy" {
     actions = [
       "kms:*"
     ]
+    effect    = "Allow"
+    resources = ["*"]
     principals {
       type        = "AWS"
       identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
     }
-    resources = ["*"]
-    effect    = "Allow"
   }
 
   statement {
@@ -23,17 +23,16 @@ data "aws_iam_policy_document" "key_policy" {
       "kms:GenerateDataKey*",
       "kms:ReEncrypt*"
     ]
-    principals {
-      type        = "Service"
-      identifiers = ["logs.${data.aws_region.current.name}.amazonaws.com"]
-    }
-    # resources = ["arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:*"]
+    effect    = "Allow"
     resources = ["*"]
     condition {
       test     = "ArnEquals"
       variable = "kms:EncryptionContext:aws:logs:arn"
       values   = ["arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:${var.name}"]
     }
-    effect = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["logs.${data.aws_region.current.name}.amazonaws.com"]
+    }
   }
 }
