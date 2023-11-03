@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "key_policy" {
     ]
     principals {
       type        = "Service"
-      identifiers = "logs.${aws_region.current.name}.amazonaws.com"
+      identifiers = "logs.${data.aws_region.current.name}.amazonaws.com"
     }
     resources = ["${aws_cloudwatch_log_group.flow_log_group.arn}"]
     effect    = "Allow"
