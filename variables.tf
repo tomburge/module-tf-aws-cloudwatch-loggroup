@@ -8,7 +8,7 @@ variable "name" {
   type = string
 }
 
-variable "retention_in_days" {
+variable "retention_days" {
   type    = number
   default = null
 }
