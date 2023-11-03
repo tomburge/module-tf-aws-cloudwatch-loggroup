@@ -1,3 +1,3 @@
-output "cloudwatch_log_group_arn" {
+output "arn" {
   value = aws_cloudwatch_log_group.this.arn
 }
