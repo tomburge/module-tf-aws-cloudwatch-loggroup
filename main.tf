@@ -8,6 +8,11 @@ resource "aws_kms_alias" "alias" {
   target_key_id = aws_kms_key.key.key_id
 }
 
+resource "aws_kms_key_policy" "policy" {
+  key_id = aws_kms_key.key.id
+  policy = data.aws_iam_policy_document.key_policy.json
+}
+
 resource "aws_cloudwatch_log_group" "this" {
   name              = var.name
   kms_key_id        = aws_kms_key.key.arn
