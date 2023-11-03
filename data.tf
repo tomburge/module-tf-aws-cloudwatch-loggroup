@@ -9,7 +9,7 @@ data "aws_iam_policy_document" "key_policy" {
     ]
     principals {
       type        = "AWS"
-      identifiers = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
     }
     resources = ["*"]
     effect    = "Allow"
@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "key_policy" {
     ]
     principals {
       type        = "Service"
-      identifiers = "logs.${data.aws_region.current.name}.amazonaws.com"
+      identifiers = ["logs.${data.aws_region.current.name}.amazonaws.com"]
     }
     resources = ["${aws_cloudwatch_log_group.this.arn}"]
     effect    = "Allow"
