@@ -1,6 +1,7 @@
 resource "aws_kms_key" "key" {
   description             = "KMS key for encrypting CloudWatch logs"
   deletion_window_in_days = 7
+  enable_key_rotation     = true
 }
 
 resource "aws_kms_alias" "alias" {
