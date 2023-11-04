@@ -10,7 +10,7 @@ variable "key_arn" {
 }
 
 variable "key_config" {
-  type = optional(object({
+  type = object({
     delete_days  = optional(number)
     description  = optional(string)
     enable       = optional(bool)
@@ -18,7 +18,7 @@ variable "key_config" {
     multi_region = optional(bool)
     rotation     = optional(bool)
     usage        = optional(string)
-  }))
+  })
   default = null
 }
 
