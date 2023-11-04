@@ -15,7 +15,7 @@
 # }
 
 module "kms_key" {
-  source = "github.com/tomburge/module-tf-aws-kms_key?ref=main"
+  source = "github.com/tomburge/module-tf-aws-kms-key?ref=main"
   count  = var.key_config != null && var.key_arn != null ? 1 : 0
   name   = var.name
 
