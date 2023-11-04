@@ -16,7 +16,7 @@
 
 module "kms_key" {
   source = "github.com/tomburge/module-tf-aws-kms-key?ref=main"
-  count  = var.key_config != null && var.key_arn == null ? 1 : 0
+  count  = var.key_config != null ? 1 : 0
   name   = var.name
   targets = [
     {
@@ -26,8 +26,9 @@ module "kms_key" {
 }
 
 resource "aws_cloudwatch_log_group" "this" {
-  name              = var.name
-  kms_key_id        = var.key_arn != null ? var.key_arn : module.kms_key[0].key_arn
+  name = var.name
+  # kms_key_id        = var.key_arn != null ? var.key_arn : module.kms_key[0].key_arn
+  kms_key_id        = var.key_arn != null ? var.key_arn : try(module.kms_key[0].key_arn, null)
   retention_in_days = var.retention_days != null ? var.retention_days : 365
   skip_destroy      = var.destroy != null ? var.destroy : false
 }
