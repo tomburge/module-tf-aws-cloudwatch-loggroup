@@ -18,7 +18,11 @@ module "kms_key" {
   source = "github.com/tomburge/module-tf-aws-kms-key?ref=main"
   count  = var.key_config != null && var.key_arn != null ? 1 : 0
   name   = var.name
-
+  targets = [
+    {
+      target_type = "cw_loggroup"
+    }
+  ]
 }
 
 resource "aws_cloudwatch_log_group" "this" {
