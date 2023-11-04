@@ -26,6 +26,23 @@ variable "name" {
   type = string
 }
 
+variable "protection_policy" {
+  type = object({
+    credentials           = optional(bool)
+    device_identifiers    = optional(bool)
+    financial_information = optional(bool)
+    phi                   = optional(bool)
+    pii                   = optional(bool)
+  })
+  default = {
+    credentials           = true
+    device_identifiers    = true
+    financial_information = true
+    phi                   = true
+    pii                   = true
+  }
+}
+
 variable "retention_days" {
   type    = number
   default = null
